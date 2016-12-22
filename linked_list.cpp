@@ -6,15 +6,16 @@ class LinkedList{
     struct Node {
         int x;
         Node *next;
-        
     };
 
 public:
-    LinkedList(){
+    LinkedList()
+    {
         head = NULL; // set head to NULL
     }
 
-    void addValue(int number){
+    void addValue(int number)
+    {
         Node *n = new Node();   
         n->x = number;             
         n->next = head;         
@@ -22,37 +23,39 @@ public:
         head = n;    	          
     }
 
-    int popValue(){
+    int popValue()
+    {
         Node *n = head;
         int ret = n->x;
-
         head = head->next;
         delete n;
         return ret;
         
     }
     
-    void display(){
-    int counter=1;
-    temp=head;
-    while(head!=0){
-  	
-    Node *n = head;
-    int ret = n->x;
-    head = head->next;
+    void display()
+    {
+    	int counter=1;
+    	temp=head;
+    while(head!=0)
+    {
+  	Node *n = head;
+    	int ret = n->x;
+    	head = head->next;
   	counter++;
-    cout<<ret<<endl;
+	cout<<ret<<endl;
     }
     
     head=temp;
 	}
 	
-	void Update(int counter,int number){
-	cout<<"Update";
-	cout<<"Enter position: ";
-	cin>>counter;
-	cout<<"Enter new number: ";
-	cin>>number;	
+	void Update(int counter,int number)
+	{
+		cout<<"Update";
+		cout<<"Enter position: ";
+		cin>>counter;
+		cout<<"Enter new number: ";
+		cin>>number;	
 	}
 private:
     Node *head; 
@@ -65,15 +68,15 @@ int main()
 	int choice,number,counter;
 	while (1)
 	{	
-	system("cls");
-	cout<<"Linked List MENU"<<endl;
-	cout<<"[1] Push"<<endl;
-	cout<<"[2] Pop"<<endl;
-	cout<<"[3] Display"<<endl;
-	cout<<"[4] Update"<<endl;
-	cout<<"[5] Exit"<<endl;
-	cout<<"Enter the number of your choice:" << endl;
-	cin>>choice;
+		system("cls");
+		cout<<"Linked List MENU"<<endl;
+		cout<<"[1] Push"<<endl;
+		cout<<"[2] Pop"<<endl;
+		cout<<"[3] Display"<<endl;
+		cout<<"[4] Update"<<endl;
+		cout<<"[5] Exit"<<endl;
+		cout<<"Enter the number of your choice:" << endl;
+		cin>>choice;
 	switch(choice)
 	{
 	
