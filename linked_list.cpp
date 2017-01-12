@@ -1,7 +1,7 @@
 #include<stdio.h> 
-#include<iostream>
 #include<stdlib.h>
-
+#include<iostream>
+#include<conio.h>
 using namespace std;
 
 struct node {
@@ -20,13 +20,27 @@ int count() {
   return c;
 }
 
+void search(int num) {
+  struct node * n;
+  int c = 0;
+  n = head;
+  while (n != NULL) {
+  	if(n->data==num){
+    cout<<"Location: " << c;
+	} 
+    n = n -> next;
+    c++;
+  }
+}
+
+
 void append(int num) {
   struct node * temp, * right;
   temp = (struct node * ) malloc(sizeof(struct node));
   temp -> data = num;
   right = (struct node * ) head;
   while (right -> next != NULL)
-    right = right -> next;
+  right = right -> next;
   right -> next = temp;
   right = temp;
   right -> next = NULL;
@@ -49,9 +63,9 @@ void addafter(int num, int loc) {
   int i;
   struct node * temp, * left, * right;
   right = head;
-  for (i = 1; i < loc; i++) {
+  for (i = 1; i <= loc; i++) {
     left = right;
-    right = right -> next;
+    right = right -> next; 
   }
   temp = (struct node * ) malloc(sizeof(struct node));
   temp -> data = num;
@@ -68,7 +82,7 @@ int delete_val(int num) {
     if (temp -> data == num) {
       if (temp == head) {
         head = temp -> next;
-        free(temp);
+        //free(temp);
         return 1;
       } else {
         prev -> next = temp -> next;
@@ -83,6 +97,17 @@ int delete_val(int num) {
   return 0;
 }
 
+void delete_all(int num) {
+  struct node * n;
+  int c = 0;
+  n = head;
+  while (n != NULL) {
+    delete_val(num); 
+    n = n -> next;
+    c++;
+  }
+}
+
 void insert(int num) {
   int c = 0;
   struct node * temp;
@@ -91,18 +116,12 @@ void insert(int num) {
     add(num);
   } else {
     while (temp != NULL) {
-      if (temp -> data < num)
-        c++;
       temp = temp -> next;
     }
-    if (c == 0)
-      add(num);
-    //else if (c < count())
-      //addafter(num, ++c);
-    else
       append(num);
   }
 }
+
 
 void display(struct node * r) {
   r = head;
@@ -116,116 +135,89 @@ void display(struct node * r) {
   printf("\n");
 }
 
-void search(int val){
-	struct node * n;
-	int c = 1;
-	n = head;
-	while (n  != NULL){
-		if (n->data == val){
-			printf ("Location: %d\n", c);
-		}
-		n=n -> next;
-		c++;
-	}
-	
-}
-
-void delete_all(int val){
-	struct node * n;
-	int c = 1;
-	n = head;
-	while (n  != NULL){
-		if (n->data == val){
-			delete_val(val);
-		}
-		n=n -> next;
-		c++;
-	}
-	
-}
-
 int main() {
-  int i, num;
+  int i, num, loc;
   struct node * n;
   head = NULL;
-  insert(1);
-  insert(4);
-  insert(3);
-  insert(4);
-  insert(4);
-  addafter(5,2);
-  display(n);
   while (1) {
-    printf("Linked List Operations\n");
-    printf("===============\n");
-    printf("1.Insert\n");
-    printf("2.Display\n");
-    printf("3.Size\n");
-    printf("4.Delete\n");
-    printf("5.Delete Occurance\n");
-    printf("6.Search\n");
-    printf("7.Exit\n");
-    printf("Enter your choice : ");
-    if (scanf("%d", & i) <= 0) {
-      printf("Enter only an Integer\n");
+  	system("cls");
+    cout<<"Linked List Operations\n";
+    cout<<"===============\n";
+    cout<<"1.Insert\n";
+    cout<<"2.Add After\n";
+    cout<<"3.Display\n";
+    cout<<"4.Size\n";
+    cout<<"5.Delete\n";
+    cout<<"6.Delete All\n";
+    cout<<"7.Search\n";
+    cout<<"8.Exit\n";
+    cout<<"Enter your choice : ";
+    cin>>i;
+    if (i <= 0) {
+      cout<<"Enter only an Integer\n";
       exit(0);
     } else {
       switch (i) {
+      	
       case 1:
-        printf("Enter the number to insert : ");
-        cin >> num;
+        cout<<"Enter the number to insert : ";
+        cin>>num;
         insert(num);
         break;
+        
       case 2:
+      	cout<<"Enter Value: ";
+      	cin>>num;
+      	cout<<"Enter Location: ";
+      	cin>>loc;
+      	addafter(num,loc);
+        
+      case 3:
         if (head == NULL) {
-          printf("List is Empty\n");
+          cout<<"List is Empty\n";
         } else {
-          printf("Element(s) in the list are : ");
+          cout<<"Element(s) in the list are : ";
         }
         display(n);
         break;
-      case 3:
-        printf("Size of the list is %d\n", count());
-        break;
+        
       case 4:
-        if (head == NULL)
-          printf("List is Empty\n");
-        else {
-          printf("Enter the number to delete : ");
-          scanf("%d", & num);
-          if (delete_val(num))
-            printf("%d deleted successfully\n", num);
-          else
-            printf("%d not found in the list\n", num);
-        }
+        cout<<"Size of the list is " << count() <<endl;
         break;
+        
       case 5:
-      	if (head == NULL)
-          printf("List is Empty\n");
+        if (head == NULL)
+          cout<<"List is Empty\n";
         else {
-          printf("Enter the number to delete : ");
-          scanf("%d", & num);
+          cout<<"Enter the number to delete : ";
+          cin>> num;
           if (delete_val(num))
-            printf("%d deleted successfully\n", num);
+            cout<< num <<" deleted successfully\n";
           else
-            printf("%d not found in the list\n", num);
+            cout<< num <<" not found in the list\n";
         }
         break;
-      	
+        
       case 6:
-      	printf("Enter number to search:");
-      	scanf("%d", & num);
-      	search(num);
-      	break;
-      	
+        cout<<"Enter number to delete: ";
+        cin>>num;
+        delete_all(num);
+        cout<<"All " << num <<" has been deleted succesfully";
+        break;
+        
       case 7:
-        return 0;
+      	  cout << "Enter number to find position: ";
+      	  cin >> num;
+      	  search(num);
+      	  break;
+	  	  
+      case 8:
+        return 0; 
       default:
-        printf("Invalid option\n");
+        cout<<"Invalid option\n";
       }
     }
-   
+	getch();    
   }
-
-return 0;
+  return 0;
 }
